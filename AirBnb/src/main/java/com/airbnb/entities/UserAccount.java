@@ -1,16 +1,16 @@
 package com.airbnb.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Entity
+@Document(collection = "UserAccount")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,24 +18,24 @@ import java.time.LocalDateTime;
 public class UserAccount {
 
     @Id
-    @Column(name = "user_id")
-    private String userId;
+//    @Column(name = "user_id")
+    private ObjectId id;
 
-    @Column(name = "first_name")
+//    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name")
+//    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email_address")
+//    @Column(name = "email_address")
     private String emailAddress;
 
-    @Column(name = "password")
+//    @Column(name = "password")
     private String password;
 
-    @Column(name = "joined_date")
+//    @Column(name = "joined_date")
     private LocalDateTime joinedDate;
 
-    @Column(name = "host_started_date")
+//    @Column(name = "host_started_date")
     private LocalDateTime hostStartedDate;
 }
