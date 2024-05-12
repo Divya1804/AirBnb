@@ -1,15 +1,13 @@
 package com.airbnb.services.impl;
 
 import com.airbnb.entities.UserAccount;
+import com.airbnb.exception.ResourceNotFoundException;
 import com.airbnb.repos.UserAccountRepo;
 import com.airbnb.services.UserAccountService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
@@ -20,18 +18,22 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount createUserAccount(UserAccount user) {
         user.setJoinedDate(LocalDateTime.now());
-        user.setHostStartedDate(null);
         UserAccount account = userRepo.insert(user);
         return account;
     }
 
     @Override
     public UserAccount getUserAccountById(ObjectId id) {
-        Optional<UserAccount> account = userRepo.findById(id);
-        if (account.isPresent()){
-            UserAccount acc = account.get();
-            return acc;
-        }
-        return null;
+        UserAccount user = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User Account", "ID", id));
+        return user;
+    }
+
+    @Override
+    public UserAccount updateUserAccount(UserAccount user, ObjectId id) {
+        UserAccount user1 = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User Account", "ID", id));
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setEmailAddress(user.getEmailAddress());
+        return userRepo.save(user1);
     }
 }

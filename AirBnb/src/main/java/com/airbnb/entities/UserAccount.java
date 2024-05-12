@@ -35,7 +35,4 @@ public class UserAccount {
 
 //    @Column(name = "joined_date")
     private LocalDateTime joinedDate;
-
-//    @Column(name = "host_started_date")
-    private LocalDateTime hostStartedDate;
 }

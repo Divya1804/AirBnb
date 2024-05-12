@@ -24,4 +24,9 @@ public class UserAccountController {
     private ResponseEntity<?> getUserAccountById(@PathVariable ObjectId id){
         return new ResponseEntity<>(userService.getUserAccountById(id), HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<?> updateUserAccount(@RequestBody UserAccount user, @PathVariable ObjectId id){
+        return new ResponseEntity<>(userService.updateUserAccount(user,id), HttpStatus.OK);
+    }
 }
