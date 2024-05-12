@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document(collection = "UserAccount")
 @Getter
@@ -18,21 +20,11 @@ import java.time.LocalDateTime;
 public class UserAccount {
 
     @Id
-//    @Column(name = "user_id")
     private ObjectId id;
-
-//    @Column(name = "first_name")
     private String firstName;
-
-//    @Column(name = "last_name")
     private String lastName;
-
-//    @Column(name = "email_address")
     private String emailAddress;
-
-//    @Column(name = "password")
     private String password;
-
-//    @Column(name = "joined_date")
     private LocalDateTime joinedDate;
+//    private List<Property> property;
 }

@@ -20,14 +20,19 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getPropertyById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/")
-    private ResponseEntity<?> createProperty(@RequestBody Property property){
-        return new ResponseEntity<>(propertyService.createProperty(property),HttpStatus.CREATED);
+    @PostMapping("/{id}/")
+    private ResponseEntity<?> createProperty(@PathVariable ObjectId id,@RequestBody Property property){
+        return new ResponseEntity<>(propertyService.createProperty(id,property),HttpStatus.CREATED);
     }
 
     @GetMapping("/")
     private ResponseEntity<?> getAllProperties(){
         return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/")
+    private ResponseEntity<?> getPropertiesByUserAccount(@PathVariable("userId") ObjectId userId){
+        return new ResponseEntity<>(propertyService.getPropertiesByUserAccount(userId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

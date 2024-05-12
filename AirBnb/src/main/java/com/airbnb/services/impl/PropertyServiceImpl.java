@@ -1,8 +1,10 @@
 package com.airbnb.services.impl;
 
 import com.airbnb.entities.Property;
+import com.airbnb.entities.UserAccount;
 import com.airbnb.exception.ResourceNotFoundException;
 import com.airbnb.repos.PropertyRepo;
+import com.airbnb.repos.UserAccountRepo;
 import com.airbnb.services.PropertyService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,13 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepo propertyRepo;
 
+    @Autowired
+    private UserAccountRepo userRepo;
+
     @Override
-    public Property createProperty(Property property) {
+    public Property createProperty(ObjectId userId, Property property) {
+        UserAccount user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Account", "ID", userId));
+        property.setUser(user);
         property.setPropertyAddedDate(LocalDateTime.now());
         Property p2 = propertyRepo.insert(property);
         return p2;
@@ -50,6 +57,13 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public List<Property> getAllProperties() {
         List<Property> properties = propertyRepo.findAll();
+        return properties;
+    }
+
+    @Override
+    public List<Property> getPropertiesByUserAccount(ObjectId userId) {
+        UserAccount user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Account", "ID", userId));
+        List<Property> properties = propertyRepo.findPropertiesByUser(user);
         return properties;
     }
 
