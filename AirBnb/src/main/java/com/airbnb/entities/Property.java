@@ -31,4 +31,7 @@ public class Property {
     @DBRef
     private UserAccount user;
 
+    @DBRef
+    private Country country;
+
 }

@@ -1,8 +1,10 @@
 package com.airbnb.services.impl;
 
+import com.airbnb.entities.Country;
 import com.airbnb.entities.Property;
 import com.airbnb.entities.UserAccount;
 import com.airbnb.exception.ResourceNotFoundException;
+import com.airbnb.repos.CountryRepo;
 import com.airbnb.repos.PropertyRepo;
 import com.airbnb.repos.UserAccountRepo;
 import com.airbnb.services.PropertyService;
@@ -22,10 +24,15 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private UserAccountRepo userRepo;
 
+    @Autowired
+    private CountryRepo countryRepo;
+
     @Override
-    public Property createProperty(ObjectId userId, Property property) {
+    public Property createProperty(ObjectId userId, ObjectId countryId, Property property) {
         UserAccount user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Account", "ID", userId));
         property.setUser(user);
+        Country country = countryRepo.findById(countryId).orElseThrow(() -> new ResourceNotFoundException("Country" , "ID", countryId));
+        property.setCountry(country);
         property.setPropertyAddedDate(LocalDateTime.now());
         Property p2 = propertyRepo.insert(property);
         return p2;
@@ -64,6 +71,13 @@ public class PropertyServiceImpl implements PropertyService {
     public List<Property> getPropertiesByUserAccount(ObjectId userId) {
         UserAccount user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User Account", "ID", userId));
         List<Property> properties = propertyRepo.findPropertiesByUser(user);
+        return properties;
+    }
+
+    @Override
+    public List<Property> getPropertiesByCountry(ObjectId countryId) {
+        Country country = countryRepo.findById(countryId).orElseThrow(() -> new ResourceNotFoundException("Country" , "ID", countryId));
+        List<Property> properties = propertyRepo.findPropertiesByCountry(country);
         return properties;
     }
 

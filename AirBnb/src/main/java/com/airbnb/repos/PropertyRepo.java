@@ -1,5 +1,6 @@
 package com.airbnb.repos;
 
+import com.airbnb.entities.Country;
 import com.airbnb.entities.Property;
 import com.airbnb.entities.UserAccount;
 import org.bson.types.ObjectId;
@@ -10,4 +11,5 @@ import java.util.List;
 @Repository
 public interface PropertyRepo extends MongoRepository<Property, ObjectId> {
     public List<Property> findPropertiesByUser(UserAccount user);
+    public List<Property> findPropertiesByCountry(Country country);
 }

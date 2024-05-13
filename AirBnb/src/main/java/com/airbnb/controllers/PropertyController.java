@@ -20,9 +20,9 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getPropertyById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/")
-    private ResponseEntity<?> createProperty(@PathVariable ObjectId id,@RequestBody Property property){
-        return new ResponseEntity<>(propertyService.createProperty(id,property),HttpStatus.CREATED);
+    @PostMapping("/{userId}/{countryId}/")
+    private ResponseEntity<?> createProperty(@PathVariable ObjectId userId, @PathVariable ObjectId countryId,@RequestBody Property property){
+        return new ResponseEntity<>(propertyService.createProperty(userId,countryId,property),HttpStatus.CREATED);
     }
 
     @GetMapping("/")
@@ -30,9 +30,14 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/")
+    @GetMapping("/user/{userId}/")
     private ResponseEntity<?> getPropertiesByUserAccount(@PathVariable("userId") ObjectId userId){
         return new ResponseEntity<>(propertyService.getPropertiesByUserAccount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/country/{countryId}/")
+    private ResponseEntity<?> getPropertiesByCountry(@PathVariable("countryId") ObjectId countryId){
+        return new ResponseEntity<>(propertyService.getPropertiesByCountry(countryId),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
