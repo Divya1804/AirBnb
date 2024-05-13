@@ -1,7 +1,6 @@
 package com.airbnb.services;
 
 import com.airbnb.entities.Property;
-import com.airbnb.entities.UserAccount;
 import org.bson.types.ObjectId;
 import java.util.List;
 
