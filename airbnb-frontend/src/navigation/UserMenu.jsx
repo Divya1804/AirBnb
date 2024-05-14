@@ -1,0 +1,63 @@
+import React, { useCallback, useState } from 'react'
+import {AiOutlineMenu} from 'react-icons/ai';
+import Avatar from '../Avatar';
+
+const UserMenu = () => {
+
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleOpen = useCallback(() => {
+        setIsOpen((value) => !value);
+    }, [])
+  return (
+    <div className='relative '>
+        <div className='flex flex-row items-center gap-3'>
+            <div
+                onClick={() => {}}
+                className='
+                    hidden
+                    md:block
+                    text-sm
+                    font-semibold
+                    py-3
+                    px-4
+                    rounded-full
+                    cursor-pointer
+                    hover:bg-gray-100
+                    transition-all
+                    duration-200
+                    ease-in-out
+                '
+            >
+                Airbnb your home
+            </div>
+            <div
+                onClick={toggleOpen}
+                className='
+                    p-4
+                    md:py-1
+                    md:px-2
+                    border-[1px]
+                    border-neutral-200
+                    items-center
+                    flex flex-row
+                    gap-3
+                    rounded-full
+                    cursor-pointer
+                    hover:shadow-md
+                    transition-all
+                    duration-200
+                    ease-in-out
+                    shadow-sm
+                '>
+                    <AiOutlineMenu />
+                    <div className='hidden md:block'>
+                        <Avatar />
+                    </div>
+            </div>
+        </div>
+      
+    </div>
+  )
+}
+
+export default UserMenu
